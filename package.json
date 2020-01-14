@@ -1,7 +1,7 @@
 {
   "name": "ikutan_api",
   "version": "1.0.0",
-  "description": "",
+  "description": "RESTful API for Ikutan App",
   "main": "index.js",
   "nodemonConfig": {
     "ext": "js",
@@ -12,11 +12,10 @@
     "delay": "2"
   },
   "scripts": {
-    "nodemon": "nodemon index.js",
     "start": "nodemon index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Reza Rachmanuddin",
   "license": "ISC",
   "dependencies": {
     "@hapi/joi": "^17.0.2",
