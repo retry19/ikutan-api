@@ -18,5 +18,5 @@ app.use(express.json())
 app.use('/api/user', authRoute)
 app.use('/api/events', eventRoute)
 
-app.listen(3000, () => console.log('Magic happen on port 3000...')) 
+app.listen(process.env.PORT, () => console.log('Magic happen on port 3000...')) 
  
