@@ -9,8 +9,16 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  place: {
+    type: String,
+    required: true
+  },
   description: {
     type: String,
+    required: true
+  }, 
+  quota: {
+    type: Number,
     required: true
   },
   organizer: {

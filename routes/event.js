@@ -19,13 +19,15 @@ router.get('/', verify, async (req, res) => {
 router.post('/', verify, async (req, res) => {
   const { error } = addEventValidation(req.body)
   if (error) return res.status(400).send({ status: "ERROR", msg: error.details[0].message })
-
-  const { title, date, description, organizer } = req.body
+  
+  const { title, date, place, description, quota, organizer } = req.body
 
   const event = new Event({
     title: title,
     date: date,
+    place: place,
     description: description,
+    quota: quota,
     organizer: organizer
   })
   try {
@@ -63,16 +65,16 @@ router.put('/:id', verify, async (req, res) => {
   if (error) return res.status(400).send({ status: "ERROR", msg: error.details[0].message })
 
   const { id } = req.params
-  const { title, date, description, organizer } = req.body
+  const { title, date, place, description, quota, organizer } = req.body
 
   try {
     await Event.updateOne({_id: id}, { 
-      $set: {
-        title: title,
-        date: date,
-        description: description,
-        organizer: organizer
-      }
+      title: title,
+      date: date,
+      place: place,
+      description: description,
+      quota: quota,
+      organizer: organizer 
     })
     res.status(200).send({ 
       status: "OK",
@@ -105,14 +107,15 @@ router.put('/join/:id', verify, async (req, res) => {
   const { id } = req.params
   const { uid } = req.body
 
-  const { participant } = await Event.findById(id)
+  const { participant, quota } = await Event.findById(id)
+  if (participant.includes(uid)) return res.status(400).send({ status: "ERROR", msg: "User has joined" })
+  if (participant.length == quota) return res.status(400).send({ status: "ERROR", msg: "Maximum participants" })
+
   const newParticipant = [...participant, uid]
 
   try {
     await Event.updateOne({_id: id}, {
-      $set: {
-        participant: newParticipant
-      }
+      participant: newParticipant
     })
     res.status(200).send({
       status: "OK",
@@ -135,9 +138,7 @@ router.delete('/join/:id', verify, async (req, res) => {
 
   try {
     await Event.updateOne({_id: id}, {
-      $set: {
-        participant: newParticipant
-      }
+      participant: newParticipant
     })
     res.status(200).send({
       status: "OK",

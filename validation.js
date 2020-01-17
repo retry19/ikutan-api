@@ -33,7 +33,9 @@ const addEventValidation = (data) => {
   const schema = Joi.object({
     title: Joi.string().required(),
     date: Joi.date().required(),
+    place: Joi.string().required(),
     description: Joi.string().required(),
+    quota: Joi.number().required(),
     organizer: Joi.required()
   })
   return schema.validate(data)
