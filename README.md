@@ -17,6 +17,7 @@ RESTful API for authentication user, crud event, and join / unjoin some event.
 | ------ | -------- | ----------- | ---- |
 | GET | api/events | List of events | { "status": "", "msg": "", "data": [{}, {}, {}] } |
 | GET | api/events/:id | View a event | { "status": "", "msg": "", "data": {} } |
+| GET | api/events/participants/:id | View all participant has join the event | { "status": "", "msg": "", "data": {} } |
 | POST | api/events | Create a new event | { "status": "", "msg": "", "data": { "id": "" } } |
 | PUT | api/events/:id | Update a event | { "status": "", "msg": "", "data": { "id": "" } } |
 | PUT | api/events/join/:id | Join the event | { "status": "", "msg": "" } |
