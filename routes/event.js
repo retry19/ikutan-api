@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const verify = require('./verifyToken')
 const Event = require('../model/Event')
+const User = require('../model/User')
 const { addEventValidation } = require('../validation')
 
 router.get('/', verify, async (req, res) => {
@@ -8,7 +9,7 @@ router.get('/', verify, async (req, res) => {
     const events = await Event.find()
     res.status(200).send({
       status: "OK",
-      msg: "Get all event successfully",
+      msg: "Get all events successfully",
       data: events
     })
   } catch (err) {
@@ -146,6 +147,30 @@ router.delete('/join/:id', verify, async (req, res) => {
     })
   } catch (err) {
     res.status(400).send({ status: "ERROR", msg: err })
+  }
+})
+
+/**
+ * List all participants has join the event
+ */
+router.get('/participants/:id', async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const { participant } = await Event.findById(id)
+    const getParticipants = await User.find({
+      _id: {
+        $in: participant
+      }
+    }).select(["name", "email"])
+    
+    res.status(200).send({
+      status: "OK",
+      msg: "Get all participants successfully",
+      data: getParticipants
+    })
+  } catch (err) {
+    res.status(404).send({ status: "NOT FOUND", msg: err })    
   }
 })
 
