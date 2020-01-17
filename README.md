@@ -8,8 +8,8 @@ RESTful API for authentication user, crud event, and join / unjoin some event.
 
 | Method | Endpoint | Description | Data |
 | ------ | -------- | ----------- | ---- |
-| POST | api/user/register | Register a new user | { "status": "", "msg": "", "data": { "uid": "" } } |
-| POST | api/user/login | Login for user | { "status": "", "msg": "", "data": { "auth-token": "" } } |
+| POST | api/users/register | Register a new user | { "status": "", "msg": "", "data": { "uid": "" } } |
+| POST | api/users/login | Login for user | { "status": "", "msg": "", "data": { "auth-token": "" } } |
 
 ### Event
 

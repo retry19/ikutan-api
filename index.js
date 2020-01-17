@@ -15,7 +15,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopo
 app.use(express.json())
 
 // Route middleware
-app.use('/api/user', authRoute)
+app.use('/api/users', authRoute)
 app.use('/api/events', eventRoute)
 
 app.listen(process.env.PORT, () => console.log('Magic happen on port 3000...')) 
